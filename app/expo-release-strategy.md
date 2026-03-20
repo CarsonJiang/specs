@@ -19,6 +19,20 @@
 | Preview | 生产域名 | Xcode Build | `Preview` 分支生效 |
 | Production | 生产域名 | Xcode Build | `Production` 分支生效 |
 
+## 2.1 默认域名推导
+
+如果项目只给出：
+
+- 一级域名，例如 `vyckee.com`
+- 项目 slug，例如 `digjobs`
+
+则默认采用：
+
+- Dev Web：`local-<project-slug>.<base-domain>`
+- Dev API：`local-api-<project-slug>.<base-domain>`
+- Preview / Production Web：`<project-slug>.<base-domain>`
+- Preview / Production API：`api-<project-slug>.<base-domain>`
+
 ## 3. 推荐映射
 
 ### 3.1 App Variant

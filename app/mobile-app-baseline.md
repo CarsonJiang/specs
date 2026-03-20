@@ -98,6 +98,29 @@
 - `Preview`：生产域名
 - `Production`：生产域名
 
+### 4.1 默认推导规则
+
+如果项目只给出一级域名和项目 slug，则默认按下面的规则推导：
+
+- 一级域名：如 `vyckee.com`
+- 项目 slug：如 `digjobs`
+
+默认域名：
+
+- Dev Web：`local-<project-slug>.<base-domain>`
+- Dev API：`local-api-<project-slug>.<base-domain>`
+- Preview / Production Web：`<project-slug>.<base-domain>`
+- Preview / Production API：`api-<project-slug>.<base-domain>`
+
+示例：
+
+- 一级域名：`vyckee.com`
+- 项目 slug：`digjobs`
+- Dev Web：`local-digjobs.vyckee.com`
+- Dev API：`local-api-digjobs.vyckee.com`
+- Preview / Production Web：`digjobs.vyckee.com`
+- Preview / Production API：`api-digjobs.vyckee.com`
+
 约束：
 
 - 不允许在 `Preview` / `Production` 中接入本地测试域名
