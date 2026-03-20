@@ -19,6 +19,7 @@
 
 - `app/mobile-app-baseline.md`
 - `app/expo-release-strategy.md`
+- `app/environment-variables-baseline.md`
 - `backend/service-baseline.md`
 - `infra/deployment-baseline.md`
 - `naming/fullstack-naming-baseline.md`
