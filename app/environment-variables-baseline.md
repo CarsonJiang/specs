@@ -43,7 +43,26 @@
 - 不提交到仓库
 - 优先用于 `localhost`、`10.0.2.2`、局域网 IP、本地测试 token 等本地差异
 
-### 2.3 `.env`
+### 2.3 `.env.local.example`
+
+用途：
+
+- 提供“推荐本地覆盖项”的模板
+- 告诉协作者哪些变量通常需要复制到 `.env.local` 后再改
+
+适用场景：
+
+- 项目希望区分“运行契约”和“本机覆盖建议”
+- App 侧需要单独提示 Android 模拟器、真机、局域网地址等本地差异
+- Server 侧需要给出可直接本地启动的默认开发值
+
+要求：
+
+- 可以提交到仓库
+- 内容应聚焦“本地常改项”，不要与 `.env.example` 完全重复一份
+- 若项目没有明显本地覆盖需求，可以不提供该文件
+
+### 2.4 `.env`
 
 用途：
 
@@ -60,8 +79,10 @@
 对于 Expo + Go + PostgreSQL 项目，优先使用：
 
 - `app/.env.example`
+- `app/.env.local.example`
 - `app/.env.local`
 - `server/.env.example`
+- `server/.env.local.example`
 - `server/.env.local`
 
 只有当仓库根存在统一编排入口时，才额外保留根 `.env.example`，例如：
@@ -110,6 +131,12 @@ Expo App 中，进入客户端 JS 运行时的变量统一使用 `EXPO_PUBLIC_` 
 
 - `EXPO_PUBLIC_REALTIME_SERVER_URL=wss://local-api-<project-slug>.<base-domain>/ws`
 
+`app/.env.local.example` 适合放：
+
+- Android 模拟器覆盖地址
+- 本机开发临时 viewer / tenant / debug token
+- 本机 Dev Client / Metro 相关覆盖项
+
 ### 4.3 本地覆盖规则
 
 Android 模拟器、iOS 模拟器、真机对本地 API 地址的需求可能不同。推荐：
@@ -148,6 +175,12 @@ Go 服务负责持有密钥、数据库连接和外部服务凭证。
 - `MIGRATIONS_AUTO_APPLY=true`
 - `REDIS_URL=redis://127.0.0.1:6379/0`
 
+`server/.env.local.example` 适合放：
+
+- 本机 PostgreSQL 账号密码
+- 本地 provider mock / real provider 切换
+- 本地对象存储、日志目录、recording root
+
 ### 5.3 数据库命名建议
 
 默认数据库名建议与项目 slug 一致或可直接推导，例如：
@@ -183,7 +216,7 @@ Go 服务负责持有密钥、数据库连接和外部服务凭证。
 
 项目仓库不应重复大段维护：
 
-- `.env.example` 与 `.env.local` 的职责定义
+- `.env.example`、`.env.local.example` 与 `.env.local` 的职责定义
 - `EXPO_PUBLIC_` 的公开边界
 - `Dev / Preview / Production` 的通用域名推导规则
 
@@ -192,6 +225,7 @@ Go 服务负责持有密钥、数据库连接和外部服务凭证。
 ## 8. 禁止事项
 
 - 不要把真实密钥提交到 `.env.example`
+- 不要把真实密钥提交到 `.env.local.example`
 - 不要把服务端密钥放到 Expo 客户端变量里
 - 不要同时维护多份职责不清的 `.env`
 - 不要让代码依赖一个没有在 `.env.example` 出现的环境变量

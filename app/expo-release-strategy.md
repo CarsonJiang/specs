@@ -72,6 +72,54 @@
 - 静态资源更新
 - Preview / Production 的 OTA 发布
 
+## 4.1 Build / OTA 决策
+
+可以只发 OTA 的情况：
+
+- 只改了 JS 逻辑
+- 只改了样式、文案、静态资源
+- 没有新增或变更原生依赖、Expo plugin、权限、bundle id、runtime version
+
+必须重新 Build 的情况：
+
+- 新增或升级原生依赖
+- 新增或调整 Expo plugin
+- 修改 iOS / Android 权限
+- 修改 bundle id / package name
+- 修改 `runtimeVersion`
+- 修改任何要求新原生壳的 capability
+
+## 4.2 安装产物口径
+
+建议项目仓库统一把安装产物分成：
+
+- `Dev`
+- `Preview`
+- `Production`
+
+约束：
+
+- `Dev` 是本机真机联调包，依赖本机 Metro，不参与 OTA
+- `Preview` 是预发安装包，可接收 `preview` OTA
+- `Production` 是正式安装包，可接收 `production` OTA
+
+项目仓库应只记录这些“项目事实”：
+
+- App 名称
+- bundle id / package name
+- 典型命令
+- 当前 channel / branch 名称
+- 当前域名
+
+不要在每个项目里重复大段解释 Build / OTA 的通用边界。
+
+## 4.3 Credit 边界
+
+- 本机 `Xcode Build` / `expo run:*` 不消耗 `EAS Build credit`
+- 远端 `EAS Build` 通常消耗 `EAS Build credit`
+- `EAS Update` 属于 OTA 发布，不等于重新生成安装包
+- OTA 是否受套餐配额限制，应按 Expo 当前套餐规则判断，但它不是 `EAS Build credit`
+
 ## 5. 推荐流程
 
 ### Dev
@@ -121,7 +169,9 @@
 - `proj-prd/mobile-app-baseline.md`
 - `proj-prd/deployment-design.md`
 - `app/.env.example`
+- `app/.env.local.example`（如果项目存在明显本地覆盖项）
 - `server/.env.example`
+- `server/.env.local.example`（如果项目存在明显本地覆盖项）
 - `app/.easignore`
 
 ## 8. 禁止事项
