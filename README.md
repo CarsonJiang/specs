@@ -8,6 +8,7 @@
 - `backend/`: 后端服务规范
 - `infra/`: 部署、发布、运维规范
 - `naming/`: 命名规范
+- `project-docs/`: 项目文档写作与引用模板
 
 ## 使用原则
 
@@ -23,3 +24,4 @@
 - `backend/service-baseline.md`
 - `infra/deployment-baseline.md`
 - `naming/fullstack-naming-baseline.md`
+- `project-docs/shared-baseline-reference-template.md`
